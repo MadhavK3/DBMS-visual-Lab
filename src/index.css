@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #0a0a1a;
+    color: #e2e8f0;
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0f0f2e;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #4f46e5;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6366f1;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl;
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300;
+  }
+
+  .glass-card-hover:hover {
+    @apply bg-white/10 border-white/20 shadow-lg shadow-primary-500/10;
+    transform: translateY(-4px);
+  }
+
+  .neon-text {
+    text-shadow: 0 0 10px rgba(99,102,241,0.5), 0 0 40px rgba(99,102,241,0.2);
+  }
+
+  .neon-border {
+    box-shadow: 0 0 5px rgba(99,102,241,0.3), inset 0 0 5px rgba(99,102,241,0.1);
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-neon-blue via-primary-400 to-neon-purple;
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-500 
+           hover:from-primary-500 hover:to-primary-400 transition-all duration-300 
+           shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 rounded-xl font-semibold text-primary-300 border border-primary-500/30
+           hover:bg-primary-500/10 hover:border-primary-400/50 transition-all duration-300 active:scale-95;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl bg-surface-800 border border-white/10 text-white
+           placeholder-white/30 focus:outline-none focus:border-primary-500/50 focus:ring-2 
+           focus:ring-primary-500/20 transition-all duration-300 font-mono;
+  }
+
+  .simulation-container {
+    @apply glass-card p-6 min-h-[400px] relative overflow-hidden;
+  }
+
+  .step-indicator {
+    @apply flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium;
+  }
+
+  .step-active {
+    @apply bg-primary-500/20 text-primary-300 border border-primary-500/30;
+  }
+
+  .step-completed {
+    @apply bg-neon-green/20 text-neon-green border border-neon-green/30;
+  }
+
+  .step-pending {
+    @apply bg-white/5 text-white/40 border border-white/10;
+  }
+
+  .page-bg {
+    background: linear-gradient(135deg, #0a0a1a 0%, #0f0f2e 30%, #1a1040 60%, #0a0a1a 100%);
+    min-height: 100vh;
+  }
+
+  .grid-bg {
+    background-image: 
+      linear-gradient(rgba(99,102,241,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99,102,241,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
