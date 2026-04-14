@@ -231,6 +231,54 @@ function playIntroShimmer() {
     })
 }
 
+// ─── Normalization Sounds ─────────────────────────────────────────
+
+function playTransition() {
+    const ctx = getCtx()
+    // Soft whoosh for table split
+    const osc = ctx.createOscillator()
+    const gain = ctx.createGain()
+    osc.type = 'sine'
+    osc.frequency.setValueAtTime(400, ctx.currentTime)
+    osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.15)
+    osc.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.3)
+    gain.gain.setValueAtTime(0.08, ctx.currentTime)
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35)
+    osc.connect(gain).connect(ctx.destination)
+    osc.start(ctx.currentTime)
+    osc.stop(ctx.currentTime + 0.35)
+}
+
+function playQuizCorrect() {
+    const ctx = getCtx()
+    const notes = [659, 784, 1047] // E5, G5, C6
+    notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator()
+        const gain = ctx.createGain()
+        osc.type = 'sine'
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.08)
+        gain.gain.setValueAtTime(0.1, ctx.currentTime + i * 0.08)
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.08 + 0.25)
+        osc.connect(gain).connect(ctx.destination)
+        osc.start(ctx.currentTime + i * 0.08)
+        osc.stop(ctx.currentTime + i * 0.08 + 0.25)
+    })
+}
+
+function playQuizWrong() {
+    const ctx = getCtx()
+    const osc = ctx.createOscillator()
+    const gain = ctx.createGain()
+    osc.type = 'square'
+    osc.frequency.setValueAtTime(200, ctx.currentTime)
+    osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.2)
+    gain.gain.setValueAtTime(0.06, ctx.currentTime)
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25)
+    osc.connect(gain).connect(ctx.destination)
+    osc.start(ctx.currentTime)
+    osc.stop(ctx.currentTime + 0.25)
+}
+
 // ─── Sound Map ────────────────────────────────────────────────────
 
 const soundMap = {
@@ -245,6 +293,9 @@ const soundMap = {
     intro_whoosh: playIntroWhoosh,
     intro_reveal: playIntroReveal,
     intro_shimmer: playIntroShimmer,
+    transition: playTransition,
+    quiz_correct: playQuizCorrect,
+    quiz_wrong: playQuizWrong,
 }
 
 export function playSound(name) {

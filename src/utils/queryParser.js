@@ -50,6 +50,13 @@ function parseSelect(sql) {
         })
     }
 
+    steps.push({
+        id: 'project',
+        name: 'Projection',
+        description: `Selecting columns: ${columns.join(', ')}`,
+        icon: '📋',
+    })
+
     if (orderBy) {
         steps.push({
             id: 'sort',
@@ -58,13 +65,6 @@ function parseSelect(sql) {
             icon: '↕️',
         })
     }
-
-    steps.push({
-        id: 'project',
-        name: 'Projection',
-        description: `Selecting columns: ${columns.join(', ')}`,
-        icon: '📋',
-    })
 
     steps.push({
         id: 'result',

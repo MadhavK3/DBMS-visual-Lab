@@ -17,40 +17,17 @@ const modules = [
         bgIcon: 'bg-blue-500/10',
     },
     {
-        id: 'index',
-        title: 'Index Visualizer',
-        subtitle: 'B+ Tree indexing',
-        description: 'Insert, delete, and search keys in a B+ Tree. See node splits, merges, and traversal in real time.',
-        icon: '🌳',
-        path: '/index',
-        color: 'from-emerald-500 to-green-400',
-        glow: 'shadow-emerald-500/30',
-        borderColor: 'border-emerald-500/30',
-        bgIcon: 'bg-emerald-500/10',
-    },
-    {
-        id: 'transactions',
-        title: 'Transaction Simulator',
-        subtitle: 'Concurrency & locks',
-        description: 'Create transactions, observe lock conflicts, and discover deadlocks through interactive timelines.',
-        icon: '🔄',
-        path: '/transactions',
-        color: 'from-orange-500 to-amber-400',
-        glow: 'shadow-orange-500/30',
-        borderColor: 'border-orange-500/30',
-        bgIcon: 'bg-orange-500/10',
-    },
-    {
-        id: 'normalization',
-        title: 'Normalization Lab',
-        subtitle: '1NF → 2NF → 3NF',
-        description: 'Input a table and watch it decompose into normalized forms with animated attribute migrations.',
-        icon: '📐',
+        id: 'normalization-advanced',
+        title: 'Normalization Lab+',
+        subtitle: '⭐ Advanced Interactive System',
+        description: 'Deep-dive into UNF→1NF→2NF→3NF with animated table transformations, dependency detection, practice mode, and quiz. Designed for teachers and students.',
+        icon: '🧬',
         path: '/normalization',
-        color: 'from-purple-500 to-violet-400',
-        glow: 'shadow-purple-500/30',
-        borderColor: 'border-purple-500/30',
-        bgIcon: 'bg-purple-500/10',
+        color: 'from-violet-500 to-fuchsia-400',
+        glow: 'shadow-violet-500/30',
+        borderColor: 'border-violet-500/30',
+        bgIcon: 'bg-violet-500/10',
+        featured: true,
     },
     {
         id: 'er-builder',
@@ -159,7 +136,7 @@ export default function Home() {
                 {/* Floating stat badges */}
                 <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-4 sm:gap-8">
                     {[
-                        { label: 'Modules', value: '5', icon: '📦' },
+                        { label: 'Modules', value: '3', icon: '📦' },
                         { label: 'Simulations', value: '20+', icon: '🎮' },
                         { label: 'Interactive', value: '100%', icon: '✨' },
                     ].map((stat, i) => (
@@ -241,6 +218,11 @@ export default function Home() {
                                 >
                                     {/* Gradient accent line */}
                                     <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${mod.color} opacity-60 group-hover:opacity-100 transition-opacity`} />
+                                    {mod.featured && (
+                                        <div className="absolute top-3 right-3 z-20 px-2 py-0.5 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-400 text-[10px] font-bold text-white shadow-lg">
+                                            ⭐ FEATURED
+                                        </div>
+                                    )}
 
                                     {/* Background glow */}
                                     <div className={`absolute -top-20 -right-20 w-40 h-40 rounded-full bg-gradient-to-br ${mod.color} opacity-5 group-hover:opacity-10 blur-3xl transition-opacity`} />

@@ -6,9 +6,7 @@ import { playSound } from '../../sound/soundManager'
 const navLinks = [
     { path: '/', label: 'Home', icon: '🏠' },
     { path: '/sql', label: 'SQL', icon: '📊' },
-    { path: '/index', label: 'Index', icon: '🌳' },
-    { path: '/transactions', label: 'Transactions', icon: '🔄' },
-    { path: '/normalization', label: 'Normalize', icon: '📐' },
+    { path: '/normalization', label: 'Norm Lab+', icon: '🧬' },
     { path: '/er-builder', label: 'ER Builder', icon: '🔗' },
 ]
 
@@ -69,8 +67,13 @@ export default function Navbar() {
                         })}
                     </div>
 
-                    {/* Points */}
+                    {/* Points & Branding */}
                     <div className="flex items-center gap-3">
+                        <div className="hidden sm:flex items-center px-3 py-1.5 rounded-full bg-gradient-to-r from-primary-500/20 to-neon-purple/20 border border-primary-500/30 shadow-[0_0_15px_rgba(168,85,247,0.15)]">
+                            <span className="text-xs font-bold text-primary-300 tracking-widest uppercase">
+                                By Madhav
+                            </span>
+                        </div>
                         <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neon-orange/10 border border-neon-orange/20">
                             <span className="text-sm">⭐</span>
                             <span className="text-sm font-semibold text-neon-orange">{points}</span>

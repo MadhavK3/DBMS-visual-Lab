@@ -179,7 +179,7 @@ export default function IntroSplash({ onComplete }) {
                                 boxShadow: '0 0 60px rgba(99,102,241,0.5), 0 0 120px rgba(168,85,247,0.3), inset 0 2px 0 rgba(255,255,255,0.2)',
                             }}
                         >
-                            M
+                            D
                             {/* Shimmer effect */}
                             <motion.div
                                 className="absolute inset-0 rounded-3xl"
@@ -213,7 +213,7 @@ export default function IntroSplash({ onComplete }) {
                                 filter: 'drop-shadow(0 0 20px rgba(99,102,241,0.5))',
                             }}
                         >
-                            Madhav's
+                            DBMS
                         </span>
                     </motion.div>
 
@@ -235,7 +235,7 @@ export default function IntroSplash({ onComplete }) {
                                 textShadow: '0 0 20px rgba(168,85,247,0.5)',
                             }}
                         >
-                            Production
+                            Simulator
                         </span>
                     </motion.div>
 
@@ -263,10 +263,27 @@ export default function IntroSplash({ onComplete }) {
                         transition={{ duration: 0.5, delay: 0.1 }}
                     >
                         <span
-                            className="text-base sm:text-lg tracking-[0.4em] uppercase italic text-zinc-400"
+                            className="text-base sm:text-lg tracking-[0.4em] uppercase italic text-zinc-400 block mb-8"
                         >
                             presents
                         </span>
+                    </motion.div>
+
+                    {/* Developer Credit */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ 
+                            opacity: phase >= 3 ? 1 : 0,
+                            y: phase >= 3 ? 0 : 10 
+                        }}
+                        transition={{ duration: 0.8, delay: 0.6 }}
+                    >
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-500/10 border border-primary-500/20 backdrop-blur-md">
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary-400 animate-pulse"></span>
+                            <span className="text-xs sm:text-sm tracking-widest uppercase text-primary-300 font-mono">
+                                Designed & Developed by Madhav
+                            </span>
+                        </div>
                     </motion.div>
                 </div>
 
