@@ -4,9 +4,13 @@ import { playSound } from '../../sound/soundManager'
 
 export default function IntroSplash({ onComplete }) {
     // -1: wait for click, 0: black, 1: logo, 2: text, 3: tagline, 4: fadeout
-    const [phase, setPhase] = useState(-1)
+    const [phase, setPhase] = useState(0)
     const [done, setDone] = useState(false)
     const sequenceStarted = useRef(false)
+
+    useEffect(() => {
+        startSequence()
+    }, [])
 
     const startSequence = () => {
         if (sequenceStarted.current) return
@@ -77,27 +81,7 @@ export default function IntroSplash({ onComplete }) {
                     background: 'radial-gradient(ellipse at center, #0d0d2b 0%, #030312 50%, #000000 100%)',
                 }}
             >
-                {phase === -1 ? (
-                    <div
-                        className="absolute inset-0 flex items-center justify-center cursor-pointer z-50 bg-black/50 backdrop-blur-sm transition-all hover:bg-black/40"
-                        onClick={startSequence}
-                    >
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.5 }}
-                            className="text-center"
-                        >
-                            <div className="w-20 h-20 mx-auto rounded-full bg-indigo-500/20 flex items-center justify-center mb-6 animate-pulse border border-indigo-500/50">
-                                <svg className="w-8 h-8 text-indigo-400 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M8 5v14l11-7z" />
-                                </svg>
-                            </div>
-                            <h2 className="text-2xl font-bold text-white mb-2 tracking-wider">Start Platform</h2>
-                            <p className="text-zinc-400 text-sm">Click to enable audio</p>
-                        </motion.div>
-                    </div>
-                ) : null}
+
 
                 {/* Animated particles/stars background */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -179,7 +163,7 @@ export default function IntroSplash({ onComplete }) {
                                 boxShadow: '0 0 60px rgba(99,102,241,0.5), 0 0 120px rgba(168,85,247,0.3), inset 0 2px 0 rgba(255,255,255,0.2)',
                             }}
                         >
-                            D
+                            H
                             {/* Shimmer effect */}
                             <motion.div
                                 className="absolute inset-0 rounded-3xl"
@@ -213,7 +197,7 @@ export default function IntroSplash({ onComplete }) {
                                 filter: 'drop-shadow(0 0 20px rgba(99,102,241,0.5))',
                             }}
                         >
-                            DBMS
+                            HUSTLERS
                         </span>
                     </motion.div>
 
@@ -235,7 +219,7 @@ export default function IntroSplash({ onComplete }) {
                                 textShadow: '0 0 20px rgba(168,85,247,0.5)',
                             }}
                         >
-                            Simulator
+                            PRODUCTION
                         </span>
                     </motion.div>
 
