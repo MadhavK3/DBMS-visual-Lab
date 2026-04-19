@@ -25,7 +25,7 @@ export default function App() {
                 </main>
                 <footer className="w-full text-center py-6 border-t border-white/5 bg-black/20">
                     <p className="text-white/30 text-xs sm:text-sm font-mono tracking-widest uppercase">
-                        Made by <span className="text-primary-400 font-bold">Madhav</span>
+                        Made by <span className="text-primary-400 font-bold">Team Hustlers</span>
                     </p>
                 </footer>
             </div>

@@ -67,16 +67,41 @@ export function analyzeUNF(dataset) {
 export function convertTo1NF(dataset) {
   const { columns, rows, primaryKey, functionalDependencies } = dataset
 
-  // Check for atomicity (our datasets are already atomic)
-  const isAtomic = rows.every(row =>
-    row.every(cell => !cell.includes(',') && !cell.includes(';'))
-  )
+  let isAtomicOrig = true
+  let newRows = []
+
+  rows.forEach(row => {
+    let rowMultiValues = false
+    let multiValueIndices = []
+    
+    // Check if row has multi-valued cells
+    row.forEach((cell, idx) => {
+      if (typeof cell === 'string' && (cell.includes(',') || cell.includes(';'))) {
+        isAtomicOrig = false
+        rowMultiValues = true
+        multiValueIndices.push({ idx, values: cell.split(/[,;]/).map(v => v.trim()) })
+      }
+    })
+
+    if (!rowMultiValues) {
+      newRows.push([...row])
+    } else {
+      // Find cartesian product of all multi values
+      // (For this specific lab, we assume one multi-valued column per row for simplicity)
+      const mvCol = multiValueIndices[0]
+      mvCol.values.forEach(val => {
+        const newRow = [...row]
+        newRow[mvCol.idx] = val
+        newRows.push(newRow)
+      })
+    }
+  })
 
   // Verify uniqueness on the primary key
   const pkIndices = primaryKey.map(k => columns.indexOf(k))
   const pkValues = new Set()
   let isUnique = true
-  rows.forEach(row => {
+  newRows.forEach(row => {
     const pkVal = pkIndices.map(i => row[i]).join('|')
     if (pkValues.has(pkVal)) isUnique = false
     pkValues.add(pkVal)
@@ -86,20 +111,22 @@ export function convertTo1NF(dataset) {
     tables: [{
       name: dataset.tableName,
       columns: [...columns],
-      rows: rows.map(r => [...r]),
+      rows: newRows,
       primaryKey: [...primaryKey],
       status: '1NF ✓',
     }],
-    isAtomic,
+    isAtomic: isAtomicOrig,
     isUnique,
     functionalDependencies,
     explanation: {
       title: 'First Normal Form (1NF)',
-      description: `The table is now in 1NF. All values are atomic (indivisible), and each row is uniquely identified by the composite key (${primaryKey.join(', ')}).`,
+      description: isAtomicOrig 
+        ? `The table is now in 1NF. All values are atomic (indivisible).` 
+        : `The table is now in 1NF. Multi-valued attributes were separated into new rows, ensuring all values are atomic (indivisible).`,
       details: [
         `✓ All ${columns.length} columns contain atomic values`,
-        `✓ Primary key (${primaryKey.join(', ')}) uniquely identifies each of the ${rows.length} rows`,
-        '✓ No repeating groups within cells',
+        `Expanded multi-valued rows resulting in ${newRows.length} total rows`,
+        `✓ Primary key (${primaryKey.join(', ')}) uniquely identifies each row`,
         `Next: Check for partial dependencies on the composite key (${primaryKey.join(', ')})`,
       ],
     },
@@ -353,8 +380,15 @@ export function convertTo3NF(dataset, tables2NF) {
 export function runFullNormalization(dataset) {
   const unfResult = analyzeUNF(dataset)
   const result1NF = convertTo1NF(dataset)
-  const result2NF = convertTo2NF(dataset)
-  const result3NF = convertTo3NF(dataset, result2NF.tables)
+  
+  // Feed the 1NF expanded rows into the subsequent steps
+  const dataset1NF = {
+    ...dataset,
+    rows: result1NF.tables[0].rows
+  }
+
+  const result2NF = convertTo2NF(dataset1NF)
+  const result3NF = convertTo3NF(dataset1NF, result2NF.tables)
 
   return {
     steps: [

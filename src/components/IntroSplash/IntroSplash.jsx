@@ -29,7 +29,7 @@ export default function IntroSplash({ onComplete }) {
             playSound('intro_reveal')
         }, 1200)
 
-        // Phase 2: "Madhav's Production" text
+        // Phase 2: "Team Hustlers' Production" text
         const t3 = setTimeout(() => {
             setPhase(3)
             playSound('intro_shimmer')
@@ -193,7 +193,7 @@ export default function IntroSplash({ onComplete }) {
                         </div>
                     </motion.div>
 
-                    {/* "MADHAV'S" text */}
+                    {/* "Team Hustlers'" text */}
                     <motion.div
                         initial={{ opacity: 0, y: 20, letterSpacing: '0.5em' }}
                         animate={{
@@ -281,7 +281,7 @@ export default function IntroSplash({ onComplete }) {
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-500/10 border border-primary-500/20 backdrop-blur-md">
                             <span className="w-1.5 h-1.5 rounded-full bg-primary-400 animate-pulse"></span>
                             <span className="text-xs sm:text-sm tracking-widest uppercase text-primary-300 font-mono">
-                                Designed & Developed by Madhav
+                                Designed & Developed by Team Hustlers
                             </span>
                         </div>
                     </motion.div>
